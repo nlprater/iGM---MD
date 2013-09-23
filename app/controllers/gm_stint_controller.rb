@@ -1,0 +1,4 @@
+class GmStintController < ApplicationController
+
+
+end

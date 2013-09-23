@@ -1,0 +1,24 @@
+  <a class="app_name" href="/">iGM</a>
+<ul>  
+    <% if logged_in? %>
+    <li><a class="options" href="draft/new">Create New Draft</a>
+      <div class='dropdown'>
+        <ul class="submenu">
+          <li><a  href="">Choice 1</a></li>
+          <li><a  href="">Choice 2</a></li>
+          <li><a  href="">Choice 3</a></li>
+        </ul>
+      </div>  
+    </li>
+    <li><a href="/draft">Find a Draft</a></li>
+    <li><a href="/draft/new">Create a Draft</a></li>
+    <li><a href="/logout">Logout</a></li>
+    <li><a href="/user/<%= current_user.id %>"><%=current_user.username %></a></li>
+    <% else %>
+      <li><a href="/draft">Find a Draft</a></li>
+      <li><a href="/login">Login</a></li>
+      <li><a  href="/user/new">Register</a></li>
+    <% end %>
+</ul>
+
+

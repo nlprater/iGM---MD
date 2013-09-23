@@ -1,0 +1,3 @@
+class DraftPositionController < ApplicationController
+
+end

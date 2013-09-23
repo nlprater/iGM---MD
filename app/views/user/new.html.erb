@@ -1,0 +1,13 @@
+<div class="page_container">
+  <h1>Create User</h1>
+  <%= form_for @user,url: user_path(@user) do |f|  %>
+  <%=  f.text_field     :username, placeholder: "Username" %><br><br>
+  <%=  f.email_field    :email,    placeholder: "Email" %><br><br>
+  <%=  f.password_field :password, placeholder: "Password" %><br><br>
+  <%=  f.password_field :password_confirmation, placeholder: "Password(confirm)" %><br><br>
+  <%=  f.submit "Become a GM" %>
+  <% end %>
+  <% if @error%>
+    <p id="error"><%= @error %></p>
+  <% end %>
+</div>
