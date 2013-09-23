@@ -1,6 +1,7 @@
 class DraftController < ApplicationController
 
   def new
+  	@draft = Draft.new
     @teams = Team.all
     @afc_north = Team.where(division: 'AFC North')
     @afc_east = Team.where(division: 'AFC East')
@@ -13,7 +14,28 @@ class DraftController < ApplicationController
   end
 
   def create
+    @draft = Draft.create(:creator_id => current_user.id, :number_of_games => params[:number_of_games].to_i,:number_of_rounds => params[:number_of_rounds].to_i,:access => params[:access],:type => params[:type])
+    p @draft
+    params[:number_of_rounds].to_i.times do |i|
+      Round.create(:draft_id => @draft.id, :draft_round_number => i)
+    end
 
+    @rounds = Round.where("draft_id = #{@draft.id}")
+    @number_of_teams = Team.all.count
+    @rounds.each do |round|
+      @number_of_teams.times do |i|
+        DraftPosition.create(:team_id => i, :round_id => round.id, :position => i)
+      end
+    end
+
+    @draft = Draft.where("creator_id = #{current_user.id}").last
+    @first_round_draft_positions = []
+    @draft.rounds.first.draft_positions.each {|dp| @first_round_draft_positions << dp}
+
+    @draft_positions = []
+    @draft.rounds.each {|round| round.draft_positions.each {|dp| @draft_positions << dp}}
+
+    return "<p>yeah!</p>"
   end
 
 end

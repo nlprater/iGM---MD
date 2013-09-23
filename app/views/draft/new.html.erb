@@ -2,7 +2,19 @@
   <h1 class="no_page_container">Create New Draft</h1>
   <div class="cd_left">
   	<h2>Setup</h2>
-    <form id="draft_setup" action='/create_draft' method ="POST">
+    <%= form_for @draft,url: new_draft_path(@draft) do |f| %>
+    <%= f.text_field :name %><br>
+    <%= select_tag(:number_of_gms) %>
+      <%= options_for_select([['1', '1'], [2, 2], [3, 3],[4, 4],[5, 5],[6, 6],[7, 7],[8, 8],[9, 9],[10, 10]]) %><br>
+    <%= select_tag(:number_of_rounds, '<option value="1">1</option>') %>
+      <%= options_for_select([[1, 1], [2, 2], [3, 3]]) %><br>
+    <%= select_tag(:access, '<option value="public">Public</option>') %>
+      <%= options_for_select([['Public', 'public'], ['Private', 'private']]) %><br>
+    <%= f.select :type, [['Round Robin','round robin'],['Draft as a Team','draft as a team']]%><br>
+    <%= f.submit "Step 2 - Details" %> 
+    <% end %>
+
+    <!-- <form id="draft_setup" action='/draft/create' method ="POST">
       <input id="name" type="text" placeholder="enter draft name" required><br><br>
        <label>Number of GM's  <select id="number_of_gms">
         <option value="1">1</option>
@@ -33,11 +45,11 @@
       	<option value="round robin">Round Robin</option>
         <option value="team">Draft as a Team</option>
       </select></label><br><br><br>
-        <!-- <p><strong>Round Robin:</strong> GM's make every pick</p>
+        <! <p><strong>Round Robin:</strong> GM's make every pick</p>
         <p><strong>Draft as a Team:</strong> Across mulitple rounds</p>
         <br> -->
-      <input id="draft_creation" type="submit" value="Step 2 - Details">
-    </form>
+     <!--  <input id="draft_creation" type="submit" value="Step 2 - Details">
+    </form> --> 
     <% if @error%>
       <p id="error"><%= @error %></p>
     <% end %>

@@ -22,8 +22,9 @@ ActiveRecord::Schema.define(version: 20130914132828) do
   end
 
   create_table "drafts", force: true do |t|
+    t.string   "name"
     t.integer  "creator_id"
-    t.integer  "number_of_games"
+    t.integer  "number_of_gms"
     t.integer  "number_of_rounds"
     t.string   "access"
     t.string   "type"
