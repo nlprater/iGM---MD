@@ -9,5 +9,7 @@ class Draft < ActiveRecord::Base
   has_many :gm_stints
 
   validates :number_of_rounds, presence: true
-
+  validates :draft_type, presence: true
+  validates :creator_id, presence: true
+  validates :number_of_gms, presence: true
 end

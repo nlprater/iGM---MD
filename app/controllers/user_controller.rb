@@ -7,13 +7,13 @@ class UserController < ApplicationController
   def create
   	@user = User.new(user_params)
 
-	if @user.save
-	  session[:user_id] = @user.id
-	  redirect_to '/draft'
-	else
-	  @error = "You messed up, sucka!"
-	  redirect_to :back
-	end 
+  	if @user.save
+  	  session[:user_id] = @user.id
+  	  redirect_to draft_index_path
+  	else
+  	  @error = "You messed up, sucka!"
+  	  redirect_to :back
+  	end 
   end
 
   private

@@ -1,31 +1,40 @@
-$(function() {
-         $( "#sortable" ).sortable();
-         $( "#sortable" ).disableSelection();
-          });
-
-$(document).ready(function() {
+function initializePage() {
   $('.cd_middle').hide();
   $('.cd_right').hide();
-  $('#draft_setup').submit(function(event){
+}
+
+function enableSortable() {
+  $( "#sortable" ).sortable();
+  $( "#sortable" ).disableSelection();
+}
+
+function createDraft() { 
+  $('#draft_setup').click(function(event){
     event.preventDefault();
 
-    var draft_data = {
-      name             : $('#name').val(),
-      number_of_gms    : $('#number_of_gms').val(),
-      number_of_rounds : $('#number_of_rounds').val(),
-      access           : $('#access').val(),
-      type             : $('#draft_type').val()
-    }
-    
-    $.post('/draft/new', draft_data, function(response){
-       $('#draft_setup').append(response)
-    });
+  var draft_data = {
+    name             : $('#name').val(),
+    number_of_gms    : $('#number_of_gms').val(),
+    number_of_rounds : $('#number_of_rounds').val(),
+    access           : $('#access').val(),
+    draft_type       : $('#draft_type').val()
+  }
 
-    $('.cd_middle').show();
-    $('#team_selection_form').submit(function(event){
+  console.log(draft_data);
+  
+  $.post('/draft', draft_data, function(response){
+      console.log(response);
+     $('#draft_setup').append(response)
+  });
+
+  $('.cd_middle').show();
+  
+  });
+}
+
+function createGMStints() {
+  $('#team_selection_form').submit(function(event){
       event.preventDefault();
-
-      // $('.cd_right').load('create_draft #sortable');
 
       var checked = $('.team_checkbox:checked').map(function() {
         return $(this).val();
@@ -35,20 +44,27 @@ $(document).ready(function() {
       teams : checked
       }
 
-      $.post('/gm_stint/new', team_data,function(response){
-      	$('.cd_right').load(response);
-      	$('.cd_right').show();
+      console.log(team_data)
+
+      $.post('/gm_stint', team_data,function(response){
+        console.log(response);
+        $('.cd_right').show();
       });
     });
-
-      
-      $("#sortable").sortable({
-        stop: function(event, ui) {
-        alert("New position: " + ui.item.index());
-        }
-       });
-      $("#sortable").disableSelection();
+}
 
 
-  });
+
+$(document).ready(function() {
+  initializePage();
+  enableSortable();
+  createDraft();
+  createGMStints();
 });
+
+// $("#sortable").sortable({
+//         stop: function(event, ui) {
+//         alert("New position: " + ui.item.index());
+//         }
+//        });
+//       $("#sortable").disableSelection();

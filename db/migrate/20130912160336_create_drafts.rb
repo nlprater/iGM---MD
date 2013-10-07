@@ -6,7 +6,7 @@ class CreateDrafts < ActiveRecord::Migration
   	  t.integer :number_of_gms
   	  t.integer :number_of_rounds
   	  t.string  :access
-  	  t.string  :type
+  	  t.string  :draft_type
 
   	  t.timestamps
   	end

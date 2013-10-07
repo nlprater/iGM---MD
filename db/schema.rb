@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20130914132828) do
     t.integer  "number_of_gms"
     t.integer  "number_of_rounds"
     t.string   "access"
-    t.string   "type"
+    t.string   "draft_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
