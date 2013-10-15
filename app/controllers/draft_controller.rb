@@ -14,33 +14,13 @@ class DraftController < ApplicationController
   end
 
   def create
-    @draft = Draft.create(:name => params[:name],:creator_id => current_user.id, :number_of_gms => params[:number_of_gms].to_i,:number_of_rounds => params[:number_of_rounds].to_i,:access => params[:access],:draft_type => params[:draft_type])
-
-    p @draft
+    @draft = Draft.create(name: params[:name],creator_id: current_user.id, number_of_gms: params[:number_of_gms].to_i,number_of_rounds: params[:number_of_rounds].to_i,access: params[:access],draft_type: params[:draft_type])
 
     params[:number_of_rounds].to_i.times do |i|
-      Round.create(:draft_id => @draft.id, :draft_round_number => (i + 1))
+      Round.create(draft_id: @draft.id, draft_round_number: i+1)
     end
 
-    @rounds = Round.where("draft_id = #{@draft.id}")
-
-    @number_of_teams = Team.all.count
-    @rounds.each do |round|
-      @number_of_teams.times do |i|
-        DraftPosition.create(:team_id => i, :round_id => round.id, :position => i)
-      end
-    end
-
-    @draft = Draft.where("creator_id = #{current_user.id}").last
-    @first_round_draft_positions = []
-    @draft.rounds.first.draft_positions.each {|dp| @first_round_draft_positions << dp}
-
-    @draft_positions = []
-    @draft.rounds.each {|round| round.draft_positions.each {|dp| @draft_positions << dp}}
-
-    
     render nothing: true
-    return "<p>yeah!</p>"
   end
 
 end

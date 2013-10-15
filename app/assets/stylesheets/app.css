@@ -48,7 +48,6 @@ header > ul > li > a {
   color: white;
   text-decoration: none;
   padding: 10px;
-  font-size: 1.5em;
 }
 
 h1{
@@ -57,7 +56,7 @@ h1{
 
 h1.no_page_container {
   text-align: left;
-  font-size: 18px;
+  font-size: 25px;
 }
 
 .page_container {
